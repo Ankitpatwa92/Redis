@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.intellect.redis.sample;
+package com.redis.sample;
 
 import java.util.Map;
 

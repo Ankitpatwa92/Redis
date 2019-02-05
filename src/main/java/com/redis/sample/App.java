@@ -1,4 +1,4 @@
-package com.intellect.redis.sample;
+package com.redis.sample;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
