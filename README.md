@@ -10,3 +10,8 @@ CONFIG get requirepass
 CONFIG set requirepass "redis#123"
 ```
 
+#### How to connect to remote redis from command line
+```
+redis-cli  -h 192.168.1.119 -p 6379 -a redis_password
+```
+
