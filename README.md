@@ -17,5 +17,5 @@ redis-cli  -h 192.168.1.119 -p 6379 -a redis_password
 
 #### How to See number of open connection in redis
 ```
-**client list**
+client list
 ```
