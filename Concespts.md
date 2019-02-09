@@ -56,7 +56,50 @@ With the pipeline code, if another client tries to get data in the middle of you
 for redis to give them partial data. By partial, I don't mean in the middle of a single set command, but rather maybe 
 data where half of the different set commands have executed, but the other half haven't.
 
+#### What is watch in Redis?
+Watch is kind of lock on key. If one transaction is changing any key other can not do.
+
+Example Without watch
+```
+# Initial arbitrary value
+powerlevel = 10
+session A: GET powerlevel -> 10
+session B: GET powerlevel -> 10
+session A: current = 10 + 1
+session B: current = 10 + 1
+session A: SET powerlevel 11
+session B: SET powerlevel 11
+# In the end we have 11 instead of 12 -> wrong
+```
+
+With Watch
+
+```
+# Initial arbitrary value
+powerlevel = 10
+session A: WATCH powerlevel
+session B: WATCH powerlevel
+session A: GET powerlevel -> 10
+session B: GET powerlevel -> 10
+session A: current = 10 + 1
+session B: current = 10 + 1
+session A: MULTI
+session B: MULTI
+session A: SET powerlevel 11 -> QUEUED
+session B: SET powerlevel 11 -> QUEUED
+session A: EXEC -> success! powerlevel is now 11
+session B: EXEC -> failure, because powerlevel has changed and was watched
+# In the end, we have 11, and session B knows it has to attempt the transaction again
+# Hopefully, it will work fine this time.
+```
 
 
+Java Code Example
 
-
+```
+Jedis jedis1 = jedisPool.getResource();
+ jedis1.watch("foo");
+ Transaction t1=jedis1.multi();	  		  	 
+ t1.incrBy("foo", 1);
+ t1.exec();
+```
