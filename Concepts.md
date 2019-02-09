@@ -1,4 +1,4 @@
-#### What is Pipline in redis and how it works?
+### What is Pipline in redis and how it works?
 
 Pipelining is primarily a network optimization. It essentially means the client buffers up a bunch of commands and 
 ships them to the server in one go. The commands are not guaranteed to be executed in a transaction. The benefit 
