@@ -97,9 +97,10 @@ session B: EXEC -> failure, because powerlevel has changed and was watched
 Java Code Example
 
 ```
-Jedis jedis1 = jedisPool.getResource();
+ Jedis jedis1 = jedisPool.getResource();
  jedis1.watch("foo");
  Transaction t1=jedis1.multi();	  		  	 
  t1.incrBy("foo", 1);
  t1.exec();
+ jedis1.unwatch();
 ```
