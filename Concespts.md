@@ -1,5 +1,5 @@
 #### What is Pipline in redis and how it works?
-```
+
 Pipelining is primarily a network optimization. It essentially means the client buffers up a bunch of commands and 
 ships them to the server in one go. The commands are not guaranteed to be executed in a transaction. The benefit 
 here is saving network round  trip time for every command.
@@ -17,10 +17,10 @@ for (int i = 0; i < 100000; i++) {
 
 pipeline.exec();
 
-```
+
 
 #### What is Multi in redis and how it works?
-```
+
 Multi means all instrucion will be executed in transaction.It ensure atomicity.All the commands in a transaction are 
 serialized and executed sequentially. It can never happen that a request issued by another client is served in 
 the middle of the execution of a Redis transaction. This guarantees that the commands are executed as a single isolated 
@@ -37,7 +37,7 @@ for (int i = 0; i < 100000; i++) {
 
 List<Object> results = tx.exec();
 
-```
+
 
 #### What is the difference between transaction and Pipleline in redis?
 ```
