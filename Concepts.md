@@ -20,7 +20,7 @@ pipeline.exec(); or pipeline.sync(); //sync will not return any result
 ```
 
 
-#### What is Multi in redis and how it works?
+### What is Multi in redis and how it works?
 
 Multi means all instrucion will be executed in transaction.It ensure atomicity.All the commands in a transaction are 
 serialized and executed sequentially. It can never happen that a request issued by another client is served in 
@@ -40,7 +40,7 @@ List<Object> results = tx.exec();
 ```
 
 
-#### What is the difference between transaction and Pipleline in redis?
+### What is the difference between transaction and Pipleline in redis?
 
 * Transactions make all the commands within the transaction atomic, pipelines make the client send all commands to
   the server at the same time (as opposed to sending one command at a time and waiting for the result).
@@ -56,7 +56,7 @@ List<Object> results = tx.exec();
   for redis to give them partial data. By partial, I don't mean in the middle of a single set command, but rather maybe 
   data where half of the different set commands have executed, but the other half haven't.
 
-#### What is watch in Redis?
+### What is watch in Redis?
 Watch is kind of lock on key. If one transaction is changing any key other can not do.
 
 Example Without watch
