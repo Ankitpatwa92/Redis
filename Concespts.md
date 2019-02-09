@@ -16,7 +16,7 @@ for (int i = 0; i < 100000; i++) {
     pipeline.set("" + i, "" + i); 
 }
 
-pipeline.exec();
+pipeline.exec(); or pipeline.sync(); //sync will not return any result
 ```
 
 
