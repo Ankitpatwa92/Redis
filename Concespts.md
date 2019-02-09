@@ -42,19 +42,19 @@ List<Object> results = tx.exec();
 
 #### What is the difference between transaction and Pipleline in redis?
 
-Transactions make all the commands within the transaction atomic, pipelines make the client send all commands to
-the server at the same time (as opposed to sending one command at a time and waiting for the result).
+* Transactions make all the commands within the transaction atomic, pipelines make the client send all commands to
+  the server at the same time (as opposed to sending one command at a time and waiting for the result).
 
-In jedis specifically, the client API makes it so that all transactions are also pipelines. This is why you won't
-see a performance difference - both the transaction and non-transaction code are run via a pipeline.
+* In jedis specifically, the client API makes it so that all transactions are also pipelines. This is why you won't
+  see a performance difference - both the transaction and non-transaction code are run via a pipeline.
 
-However, there is a difference on the server side: with the only transaction code, if another redis clients tries 
-to get some data (say KEYS maybe?) in the middle of your transaction, it will not show them results until the entire 
-transaction is completed, so either they will receive data with all changes, or no changes.
+* However, there is a difference on the server side: with the only transaction code, if another redis clients tries 
+  to get some data (say KEYS maybe?) in the middle of your transaction, it will not show them results until the entire 
+  transaction is completed, so either they will receive data with all changes, or no changes.
 
-With the pipeline code, if another client tries to get data in the middle of your pipeline, it is perfectly allowed 
-for redis to give them partial data. By partial, I don't mean in the middle of a single set command, but rather maybe 
-data where half of the different set commands have executed, but the other half haven't.
+* With the pipeline code, if another client tries to get data in the middle of your pipeline, it is perfectly allowed 
+  for redis to give them partial data. By partial, I don't mean in the middle of a single set command, but rather maybe 
+  data where half of the different set commands have executed, but the other half haven't.
 
 #### What is watch in Redis?
 Watch is kind of lock on key. If one transaction is changing any key other can not do.
